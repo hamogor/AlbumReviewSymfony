@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    {% for album in albums %}
+        <article>
+            <h2><a href="{{ path('album_view', {'album_id': album.id}) }}">
+                    {{ album.title | title }}
+                </a> - By {{ album.artist }}</h2>
+        </article>
+    {% endfor %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <a href="{{ path('album_create') }}">Add a new album</a>
+    {% endif %}
+    <div class="navigation">
+        {{ knp_pagination_render(albums) }}
+    </div>
+{% endblock %}

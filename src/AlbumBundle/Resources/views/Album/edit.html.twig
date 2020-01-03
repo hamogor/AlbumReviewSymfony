@@ -1,0 +1,15 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Edit: {{ album.title }}{% endblock %}
+
+{% block body %}
+<h1>Edit {{ album.title }}</h1>
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    {% if app.user.username == album.author %}
+    {{ form(form) }}
+    <p><a href="{{ path('album_delete', {'album_id': album.id}) }}">Delete</a></p>
+    {% else %}
+    <p>This is not your album to edit!</p>
+    {% endif %}
+    {% endif %}
+{% endblock %}

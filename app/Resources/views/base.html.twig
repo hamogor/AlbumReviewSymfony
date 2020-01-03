@@ -1,0 +1,60 @@
+{# app/Resources/views/base.html.twig #}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Album{% endblock %}</title>
+
+    {% block stylesheets %}
+        {% stylesheets'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'
+            'https://cdnjs.cloudflare.com/ajax/libs/hack/0.8.1/solarized-dark.css'
+            '../app/Resources/public/css/hack.css'
+            '../app/Resources/public/css/style.css' %}
+            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+        {% endstylesheets %}
+    {% endblock %}
+
+    {% block javascript %}
+        {% javascripts'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js'%}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+
+<body class="hack solarized-dark">
+<div class="container">
+    <nav>
+        <a href="{{ path('album_index') }}">Home</a>
+
+
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <a href="{{ path('album_create') }}">Create</a>
+            Logged in as {{ app.user.username }} |
+            <a href="{{ path('fos_user_security_logout') }}">
+                {{ 'Logout'|trans({}, 'FOSUserBundle') }}
+            </a>
+        {% else %}
+            <a href="{{ path('fos_user_security_login') }}">
+                {{ 'Login'|trans({}, 'FOSUserBundle') }}
+            </a>
+        {% endif %}
+
+
+
+    </nav>
+
+    <div class="row">
+        <section class="col-md-8"><div class="container main_content">{% block body %}{% endblock %}</div></section>
+        <section class="col-md-4"><div class="container">{% block sidebar %}{% endblock %}</div></section>
+    </div>
+    <div class="footer">{% block footer %}
+            <p>Album Review AWD</p>{% endblock %}</div>
+</div>
+{% block fos_user_content %}
+{% endblock fos_user_content %}
+</body>
+
+</html>

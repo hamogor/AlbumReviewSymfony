@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Edit Review{% endblock %}
+
+{% block body %}
+    <h1>Edit a review</h1>
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {% if app.user.username == review.author %}
+            {{ form(form) }}
+            <p><a href="{{ path('review_delete', {'review_id': review.id}) }}">Delete</a></p>
+        {% else %}
+            <p>This is not your review to edit!</p>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

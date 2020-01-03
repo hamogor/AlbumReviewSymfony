@@ -1,0 +1,25 @@
+album_index:
+    path:     /
+    defaults: { _controller: AlbumBundle:Album:index }
+
+album_view:
+    path:     /view/{album_id}
+    defaults: { _controller: AlbumBundle:Album:view }
+    requirements:
+        album_id: '\d+'
+
+album_create:
+    path:     /create
+    defaults: { _controller: AlbumBundle:Album:create }
+
+album_edit:
+    path:     /edit/{album_id}
+    defaults: { _controller: AlbumBundle:Album:edit }
+    requirements:
+        album_id: '\d+'
+
+album_delete:
+    path:     /delete/{album_id}
+    defaults: { _controller: AlbumBundle:Album:delete }
+    requirements:
+            album_id: '\d+'

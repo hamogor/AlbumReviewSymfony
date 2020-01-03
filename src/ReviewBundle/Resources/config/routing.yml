@@ -1,0 +1,27 @@
+review_homepage:
+    path:     /
+    defaults: { _controller: ReviewBundle:Default:index }
+
+review_create:
+    path: /create_review/{album_id}
+    defaults: { _controller: ReviewBundle:Review:create }
+    requirements:
+        album_id: '\d+'
+
+review_edit:
+    path:     /review_edit/{review_id}
+    defaults: { _controller: ReviewBundle:Review:edit }
+    requirements:
+        review_id: '\d+'
+
+review_delete:
+    path:     /review_delete/{review_id}
+    defaults: { _controller: ReviewBundle:Review:delete }
+    requirements:
+            review_id: '\d+'
+
+review_view:
+    path:     /review_view/{review_id}
+    defaults: { _controller: ReviewBundle:Review:view }
+    requirements:
+            review_id: '\d+'

@@ -1,0 +1,8 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Create Album{% endblock %}
+
+{% block body %}
+{{ form(form) }}
+{{ form_row(form.trackList) }}
+{% endblock %}

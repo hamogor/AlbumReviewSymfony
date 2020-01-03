@@ -1,0 +1,14 @@
+review:
+    resource: "@ReviewBundle/Resources/config/routing.yml"
+    prefix:   /review
+
+album:
+    resource: "@AlbumBundle/Resources/config/routing.yml"
+    prefix:   /
+
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /user
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
