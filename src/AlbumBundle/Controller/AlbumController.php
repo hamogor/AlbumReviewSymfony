@@ -2,7 +2,9 @@
 
 namespace AlbumBundle\Controller;
 
+use FOS\ElasticaBundle\Manager\RepositoryManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AlbumBundle\Form\AlbumType;
 use AlbumBundle\Entity\Album;
@@ -109,6 +111,18 @@ class AlbumController extends Controller
             2
         );
         return $this->render('AlbumBundle:Album:index.html.twig',
+            ['albums' => $albums]
+        );
+    }
+
+    public function searchAction(Request $request)
+    {
+        $search = $request->query->get('q');
+
+        $em = $this->getDoctrine()->getManager();
+        $albums = $em->getRepository(Album::class)->findBy(array('title' => $search));
+        $em->getRepository(Album::class)->findBy(array('title' => $search));
+        return $this->render('AlbumBundle:Album:search.html.twig',
             ['albums' => $albums]
         );
     }

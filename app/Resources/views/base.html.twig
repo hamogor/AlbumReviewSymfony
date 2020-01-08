@@ -29,7 +29,6 @@
     <nav>
         <a href="{{ path('album_index') }}">Home</a>
 
-
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             <a href="{{ path('album_create') }}">Create</a>
             Logged in as {{ app.user.username }} |
@@ -41,6 +40,11 @@
                 {{ 'Login'|trans({}, 'FOSUserBundle') }}
             </a>
         {% endif %}
+        <form action="{{ path('album_search') }}">
+            <input type="text" placeholder="Search..." name="q">
+            <button type="submit">Search</button>
+        </form>
+
 
 
 

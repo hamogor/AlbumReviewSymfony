@@ -1,0 +1,6 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    {% for album in albums %}
+        <a href="{{ path('album_view', {'album_id': album.id}) }}">{{ album.title }}</a>
+    {% endfor %}
+{% endblock %}

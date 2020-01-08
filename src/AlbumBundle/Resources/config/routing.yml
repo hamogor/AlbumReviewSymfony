@@ -23,3 +23,10 @@ album_delete:
     defaults: { _controller: AlbumBundle:Album:delete }
     requirements:
             album_id: '\d+'
+
+album_search:
+    path: /search
+    defaults: { _controller: AlbumBundle:Album:search }
+    requirements:
+        q: '\s+'
+

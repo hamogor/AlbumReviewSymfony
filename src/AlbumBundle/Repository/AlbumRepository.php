@@ -1,6 +1,8 @@
 <?php
 
 namespace AlbumBundle\Repository;
+use Symfony\Component\HttpFoundation\Request;
+
 
 /**
  * AlbumRepository
@@ -21,5 +23,27 @@ class AlbumRepository extends \Doctrine\ORM\EntityRepository
         $query = $queryBuilder->getQuery();
 
         return $query->getResult();
+    }
+
+    public function search(AlbumRepository $repository, Request $request)
+    {
+        $q = $request->query->get('q');
+        $albums = $repository->findAllWithSearch($q);
+        return $albums;
+    }
+
+    public function findAllWithSearch(?string $term)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        if ($term) {
+            $qb->andWhere('c.title LIKE :term or c.author LIKE :term')
+                ->setParameter('term', '%' . $term . '%');
+        }
+
+        return $qb
+            ->orderBy('c.id', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 }
