@@ -44,6 +44,12 @@ class Album
     private $isrc;
 
     /**
+     * @var string
+     * @ORM\Column(name="image", type="string", unique=false)
+     */
+    private $image;
+
+    /**
      * @var array
      *
      * @ORM\Column(name="trackList", type="array")
@@ -173,7 +179,7 @@ class Album
      */
     public function setAuthor($author)
     {
-        $this->isrc = $author;
+        $this->author = $author;
 
         return $this;
     }
@@ -186,5 +192,29 @@ class Album
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Set image.
+     *
+     * @param string $image
+     *
+     * @return Album
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image.
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

@@ -5,6 +5,7 @@
 {% block body %}
 <h1>{{ album.title }}</h1>
     <p>Artist: {{ album.artist }}</p>
+    <img src="{{ asset('public/image_uploads/' ~ album.image) }}" style="width: 300px; height: 300px;">
     <ol>Tracklist:
         {% for track in album.trackList %}
             <li>{{ track }}</li>

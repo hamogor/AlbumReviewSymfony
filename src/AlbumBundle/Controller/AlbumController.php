@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AlbumBundle\Form\AlbumType;
 use AlbumBundle\Entity\Album;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 
 class AlbumController extends Controller
@@ -35,15 +37,27 @@ class AlbumController extends Controller
             $user = $this->container->get('security.token_storage')
                 ->getToken()->getUser();
 
+            /* @var UploadedFile $file */
+            $file = $form['image']->getData();
+
+            $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFileName = $fileName . '-' . uniqid() . '.' . $file->guessExtension();
+
 
             $album->setTitle($album->getTitle());
             $album->setArtist($album->getArtist());
             $album->setIsrc($album->getIsrc());
             $album->setTrackList($album->getTrackList());
-            $album->setAuthor($user->getId());
+            $album->setAuthor($user);
+            $album->setImage($newFileName);
 
             $em->persist($album);
             $em->flush();
+
+            $destination = $this->getParameter('uploads_directory');
+            $file->move($destination, $newFileName);
+
+
             return $this->redirect($this->generateUrl('album_view',
                 ['album_id' => $album->getId()]));
         }
